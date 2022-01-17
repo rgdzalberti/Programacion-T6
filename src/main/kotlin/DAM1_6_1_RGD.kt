@@ -6,8 +6,7 @@ import java.util.logging.LogManager
 val l = LogManager.getLogManager().getLogger("").apply { level = Level.OFF }
 
 //Especialización
-open class Ordenador(marca: String){
-}
+open class Ordenador(marca: String){}
 class Sobremesa(marca: String):Ordenador(marca){}
 class Portatil(marca: String):Ordenador(marca){}
 
