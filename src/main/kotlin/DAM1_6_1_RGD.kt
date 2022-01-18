@@ -51,15 +51,15 @@ fun main(){
     //println(Ordenador1.imprimir()); println(Ordenador2.imprimir())
 
     val Clase1:Familia = FamiliaPadre("Monoparental")
-    val Clase2:Familia = FamiliaMadre("Monomarental")
+    val Clase2:Familia = FamiliaMadre("Monomaternal")
     //println(Clase1.imprimir()); println(Clase2.imprimir())
 
-    val PaginaWeb1:PaginaWeb = PaginaWeb("Blog")
-    val PaginaWeb2: PaginaWeb= PaginaWeb("Blog")
+    val PaginaWeb1:PaginaWeb = FrontEnd("Blog")
+    val PaginaWeb2: PaginaWeb= BackEnd("Blog")
     //println(PaginaWeb1.imprimir()); println(PaginaWeb2.imprimir())
 
-    val ONG1:PaginaWeb = PaginaWeb("Chernobyl")
-    val ONG2: PaginaWeb= PaginaWeb("Chernobyl")
+    val ONG1:ONG = Donación("Chernobyl")
+    val ONG2: ONG = Alimentar("Chernobyl")
     //println(ONG1.imprimir()); println(ONG2.imprimir())
 
 }
