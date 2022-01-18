@@ -1,39 +1,66 @@
 package un6.eje6_1
-
 import java.util.logging.Level
 import java.util.logging.LogManager
 
 val l = LogManager.getLogManager().getLogger("").apply { level = Level.OFF }
 
+//Creo una interfaz de la que hederará las clases para que las subclases puedan comprobar que funcionan efectivamente sus variables.
+interface Imprimir{ fun imprimir():String { return String.toString() } }
+
 //Especialización
-open class Ordenador(marca: String){}
-class Sobremesa(marca: String):Ordenador(marca){}
-class Portatil(marca: String):Ordenador(marca){}
+open class Ordenador(marca: String): Imprimir{
+    val marca = marca
+    override fun toString(): String { return "$marca" }
+}
+
+class Sobremesa(marca: String): Ordenador(marca){override fun imprimir(): String {return marca}}
+class Portatil(marca: String): Ordenador(marca){override fun imprimir(): String {return marca}}
 
 //Extensión
-open class Familia(clase: String){
+open class Familia(clase: String): Imprimir{
+    val clase = clase
+    override fun toString(): String { return "$clase" }
 }
-class FamiliaPadre(clase: String):Familia(clase){}
-class FamiliaMadre(clase: String):Familia(clase){}
+class FamiliaPadre(clase: String):Familia(clase){ override fun imprimir(): String {return clase}}
+class FamiliaMadre(clase: String):Familia(clase){ override fun imprimir(): String {return clase}}
 
 //Especificación
-open class PaginaWeb(tipo: String){
+open class PaginaWeb(tipo: String): Imprimir{
+    val tipo = tipo
+    override fun toString(): String {
+        return "$tipo"
+    }
 }
-class FrontEnd(tipo: String):PaginaWeb(tipo){}
-class BackEnd(tipo: String):PaginaWeb(tipo){}
+class FrontEnd(tipo: String):PaginaWeb(tipo){ override fun imprimir(): String {return tipo}}
+class BackEnd(tipo: String):PaginaWeb(tipo){ override fun imprimir(): String {return tipo}}
 
 //Construcción
-open class ONG(localizacion: String){
+open class ONG(localizacion: String): Imprimir{
+    val localizacion = localizacion
+    override fun toString(): String {
+        return "$localizacion"
+    }
 }
-class Donación(localizacion: String):ONG(localizacion){}
-class Alimentar(localizacion: String):ONG(localizacion){}
+class Donación(localizacion: String):ONG(localizacion){override fun imprimir(): String {return localizacion}}
+class Alimentar(localizacion: String):ONG(localizacion){override fun imprimir(): String {return localizacion}}
 
-fun main() {
+fun main(){
 
-    Ordenador("Asus")
-    Familia("Monoparental")
-    PaginaWeb("Blog")
-    ONG("Chernobyl")
+    val Ordenador1:Ordenador = Sobremesa("Asus")
+    val Ordenador2:Ordenador = Portatil("Asus")
+    //println(Ordenador1.imprimir()); println(Ordenador2.imprimir())
+
+    val Clase1:Familia = FamiliaPadre("Monoparental")
+    val Clase2:Familia = FamiliaMadre("Monomarental")
+    //println(Clase1.imprimir()); println(Clase2.imprimir())
+
+    val PaginaWeb1:PaginaWeb = PaginaWeb("Blog")
+    val PaginaWeb2: PaginaWeb= PaginaWeb("Blog")
+    //println(PaginaWeb1.imprimir()); println(PaginaWeb2.imprimir())
+
+    val ONG1:PaginaWeb = PaginaWeb("Chernobyl")
+    val ONG2: PaginaWeb= PaginaWeb("Chernobyl")
+    //println(ONG1.imprimir()); println(ONG2.imprimir())
 
 }
 

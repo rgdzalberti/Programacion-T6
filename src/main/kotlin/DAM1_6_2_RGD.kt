@@ -1,12 +1,13 @@
 package un6.eje6_2
 
+/*
 import java.util.logging.Level
 import java.util.logging.LogManager
 
 val l = LogManager.getLogManager().getLogger("").apply { level = Level.OFF }
 
 //Especialización
-abstract open class Ordenador(marca: String){}
+abstract class Ordenador(marca: String){}
 class Sobremesa(marca: String):Ordenador(marca){}
 abstract class Portatil(marca: String):Ordenador(marca){}
 
@@ -33,6 +34,8 @@ fun main() {
     ONG("Chernobyl")
 
 }
+
+ */
 
 /*
 
