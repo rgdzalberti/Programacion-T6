@@ -1,81 +1,122 @@
-import un6.eje6_1.Alimentar
-import un6.eje6_1.BackEnd
-import un6.eje6_1.Donación
-import un6.eje6_1.FrontEnd
-import java.util.logging.Level
-import java.util.logging.LogManager
+package Interface
+import kotlin.random.Random
 
-val l = LogManager.getLogManager().getLogger("").apply { level = Level.OFF }
+open interface Interfaz{
 
-//Creo una interfaz de la que hederará las clases para que las subclases puedan comprobar que funcionan efectivamente sus variables.
-interface Imprimir{ fun imprimir():String { return String.toString() } }
+    var municion:Int
+    var municionARestar:Int
 
-//Especialización
-abstract class Ordenador(marca: String): Imprimir{
-    val marca = marca
-    override fun toString(): String { return "$marca" }
+    open fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 2; municion -= municionARestar}
+    fun recarga(municion: Int) {this.municion += municion}
+
 }
 
-class Sobremesa(marca: String): Ordenador(marca){override fun imprimir(): String {return marca}}
-class Portatil(marca: String): Ordenador(marca){override fun imprimir(): String {return marca}}
+abstract class ArmaDeFuego(nombre: String, municion:Int, municionARestar:Int, tipoDeMunicion:String, danio:Int, radio:String):Interfaz{
 
-//Extensión
-abstract class Familia(clase: String): Imprimir{
-    val clase = clase
-    override fun toString(): String { return "$clase" }
-}
-class FamiliaPadre(clase: String):Familia(clase){ override fun imprimir(): String {return clase}}
-class FamiliaMadre(clase: String):Familia(clase){ override fun imprimir(): String {return clase}}
+    private val nombre = nombre
+    override var municion = municion
+        set (value) = if (value>0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
+    override var municionARestar = municionARestar
+        set (value) = if (value>=0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
+    private val tipoDeMunicion = tipoDeMunicion
+    private var danio = danio
+    private val radio = radio
 
-//Especificación
-abstract class PaginaWeb(tipo: String): Imprimir{
-    val tipo = tipo
+    init { require(radio.lowercase() == "pequeño" || radio.lowercase() == "amplio"){"La variable radio solo puede ser \"Pequeño\" o \"Amplio\""} }
+
     override fun toString(): String {
-        return "$tipo"
+        return "Esta $nombre tiene $municion de municion, $municionARestar de municion restada, ${tipoDeMunicion.lowercase()} es su tipo de munición, $danio de daño y tiene un alcance ${radio.lowercase()}"
     }
-}
-class FrontEnd(tipo: String):PaginaWeb(tipo){ override fun imprimir(): String {return tipo}}
-class BackEnd(tipo: String):PaginaWeb(tipo){ override fun imprimir(): String {return tipo}}
 
-//Construcción
-abstract class ONG(localizacion: String): Imprimir{
-    val localizacion = localizacion
+    open override fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 2; municion -= municionARestar}
+    override fun recarga(municion: Int) {this.municion += municion}
+
+}
+
+class Pistola(nombre: String,municion:Int,municionARestar:Int,tipoDeMunicion:String, danio:Int,radio:String): ArmaDeFuego (nombre,municion,municionARestar,tipoDeMunicion,danio, radio)
+{
+    override fun dispara(disparos: Int){municionARestar = 0; municionARestar += disparos * 1; municion -= municionARestar}
+}
+class Rifle(nombre: String,municion:Int,municionARestar:Int,tipoDeMunicion:String, danio:Int,radio:String): ArmaDeFuego (nombre,municion,municionARestar,tipoDeMunicion,danio, radio)
+{
+    override fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 2; municion -= municionARestar}
+}
+class Bazooka(nombre: String,municion:Int,municionARestar:Int,tipoDeMunicion:String, danio:Int,radio:String): ArmaDeFuego (nombre,municion,municionARestar,tipoDeMunicion,danio, radio)
+{
+    override fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 3; municion -= municionARestar}
+}
+
+class Bocadillo(nombre: String,municion:Int,municionARestar:Int,tipoDeMunicion:String, danio:Int,radio:String): Interfaz
+{
+    private val nombre = nombre
+    override var municion = municion
+        set (value) = if (value>0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
+    override var municionARestar = municionARestar
+        set (value) = if (value>=0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
+    private val tipoDeMunicion = tipoDeMunicion
+    private var danio = danio
+    private val radio = radio
+
     override fun toString(): String {
-        return "$localizacion"
+        return "Felicidades, tu $nombre tiene $municion balas , $municionARestar de municion restada, ${tipoDeMunicion.lowercase()} es su tipo de munición, $danio de daño y tiene un alcance ${radio.lowercase()}"
     }
+
+    override fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 2; municion -= municionARestar}
 }
-class Donación(localizacion: String):ONG(localizacion){override fun imprimir(): String {return localizacion}}
-class Alimentar(localizacion: String):ONG(localizacion){override fun imprimir(): String {return localizacion}}
 
-fun main(){
+class Cajón(nombre: String,municion:Int,municionARestar:Int): Interfaz
+{
+    private val nombre = nombre
+    override var municion = municion
+        set (value) = if (value>0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
+    override var municionARestar = municionARestar
+        set (value) = if (value>=0) {field = value} else throw IllegalArgumentException("El valor no puede ser menor de 0")
 
-    val Ordenador1:Ordenador = Sobremesa("Asus")
-    val Ordenador2:Ordenador = Portatil("Asus")
-    //println(Ordenador1.imprimir()); println(Ordenador2.imprimir())
+    override fun toString(): String {
+        return "No me preguntes como, pero tu cajón $nombre ha disparado y tiene $municion balas restantes así como se le han restado $municionARestar balas"
+    }
 
-    val Clase1:Familia = FamiliaPadre("Monoparental")
-    val Clase2:Familia = FamiliaMadre("Monomaternal")
-    //println(Clase1.imprimir()); println(Clase2.imprimir())
+    override fun dispara(disparos: Int){municionARestar = 0;municionARestar += disparos * 2; municion -= municionARestar}
+}
 
-    val PaginaWeb1: un6.eje6_1.PaginaWeb = FrontEnd("Blog")
-    val PaginaWeb2: un6.eje6_1.PaginaWeb = BackEnd("Blog")
-    //println(PaginaWeb1.imprimir()); println(PaginaWeb2.imprimir())
+fun main() {
 
-    val ONG1: un6.eje6_1.ONG = Donación("Chernobyl")
-    val ONG2: un6.eje6_1.ONG = Alimentar("Chernobyl")
-    //println(ONG1.imprimir()); println(ONG2.imprimir())
+    //Desmuestro que mi Bocadillo es capaz de disparar y lo introduzco en el algoritmo del 5_1 como si fuese una opción más
+    val Bocadillo = Bocadillo("Bocadillo de Jamón",30,0,"Fuet",600,"amplio")
+    Bocadillo.dispara(1)
+    println(Bocadillo)
+    val Cajon = Cajón("de madera de alcornoque",52,0)
+
+    val Thompson = Pistola("Thompson",25,0,"Pistola",5,"Pequeño")
+    val Bolt = Rifle("Bolt",15,0,"Ligera",60,"Amplio")
+    val Colt45 = Bazooka("Colt45",13,0,"Pistola",8,"Pequeño")
+
+    val listaArmas = mutableMapOf<Int,Interfaz>()
+
+    var i = 0
+    while(i != 6){
+        when (Random.nextInt(1,6)){
+            1 -> listaArmas[i] = Thompson
+            2 -> listaArmas[i] = Bolt
+            3 -> listaArmas[i] = Colt45
+            4 -> listaArmas[i] = Bocadillo
+            5 -> listaArmas[i] = Cajon
+        }
+        i++
+    }
+    for (i in 0 until 6){listaArmas[i]?.dispara(1);println(listaArmas[i])}
 
 }
 
 
 /*
 
- a) Pongo de clase abstracta a las superclases pues no se van a instanciar, son clases de las que solo se hereda.
+ a) Pongo de clase abstracta a la superclase pues no se van a instanciar, es la clase de la que voy a heredar.
 
  b)
  Una clase abstracta nos proporciona una clara base que puede usarse para proporcionar a otras clases una implementación.
  Una interfaz nos proporcioná ya una estructura clara dispuesta a ser modificada para el uso de cada clase especifica
 
- c) Con abstract fuerzo la herencia a las subclases
+ c) Con abstract fuerzo la herencia a las subclases. En caso de necesario también podría usarse el prefijo final para evitar que se sobreescriba.
 
  */
