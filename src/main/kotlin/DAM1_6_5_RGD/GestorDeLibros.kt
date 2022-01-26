@@ -24,36 +24,61 @@ fun main() {
 
 }
 
-class gestionLibrosIU {
+class gestionLibrosIUT1(){
+
+    //Los parámetros idLibro e infoLibro se introducirán solamente si es necesario en el print
+    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Pair<String, Nothing?> = "Null" to null){
+        when (caso){
+            1 -> println("Introduzca un ID: ")
+            2 -> println("¡El libro $idLibro existe!")
+            3 -> println("¡El libro $idLibro NO existe!")
+            4 -> println("La información sobre es la siguiente\n$infoLibro")
+            5 -> println("No se encontró información sobre el libro")
+        }
+    }
+    fun Input(): String{var input = readln(); return input}
 
 }
 
-class gestionLibrosIUT1 {
+class gestionLibrosIUT2(){
+
+    //Parameters idLibro and infoLibro will only be introduced if necessary for printing
+    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Pair<String, Nothing?> = "Null" to null){
+        when (caso){
+            1 -> println("Enter an ID: ")
+            2 -> println("Book $idLibro exists!")
+            3 -> println("¡Book $idLibro does NOT exist!")
+            4 -> println("The information about it is the next\n$infoLibro")
+            5 -> println("Information about the book wasn't found")
+        }
+    }
+    fun Input(): String{var input = readln(); return input}
 
 }
 
 class gestionLibros(catalogo: GestorCatalogo)
 {
     var cat: GestorCatalogo = catalogo
+    var IUT1 = gestionLibrosIUT1()
 
     fun preguntarPorUnLibro() {
-        println("Introduzca un ID: ")
-        var idLibro = readln()
+       IUT1.ImprimirEnPantalla(1)
+        var idLibro = IUT1.Input()
         if (cat.existeLibro(idLibro))
-            println("El libro $idLibro existe!")
+            IUT1.ImprimirEnPantalla(2)
         else
-            println("El libro $idLibro NO existe!")
+            IUT1.ImprimirEnPantalla(3)
     }
 
     fun mostrarInfoDeUnLibro()
     {
-        println("Introduzca un ID: ")
-        var idLibro = readln()
+        IUT1.ImprimirEnPantalla(1)
+        var idLibro = IUT1.Input()
         var infoLibro = cat.infoLibro(idLibro)
         if (!infoLibro.isEmpty())
-            println("La información sobre es la siguiente\n$infoLibro")
+            IUT1.ImprimirEnPantalla(4)
         else
-            println("No se encontró información sobre el libro")
+            IUT1.ImprimirEnPantalla(5)
     }
 
 }
