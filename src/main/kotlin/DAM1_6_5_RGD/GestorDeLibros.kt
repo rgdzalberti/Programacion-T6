@@ -8,7 +8,7 @@ internal fun i(tag: String, msg: String) {
     l.info("[$tag] - $msg")
 }
 
-interface Archivo {
+interface GestorCatalogo {
     fun existeLibro(idLibro: String): Boolean
     fun infoLibro(idLibro: String): Map<String, Any>
 }
@@ -18,7 +18,7 @@ fun main() {
     var portatil = "/home/edu/IdeaProjects/IESRA-DAM-Prog/ejercicios/src/main/kotlin/un5/eje5_4/Catalog.xml"
     //var casa = "/home/usuario/Documentos/workspace/IdeaProjects/IESRA-DAM/ejercicios/src/main/kotlin/un5/eje5_4/Catalog.xml"
 
-    val gestorDeLibros = gestionLibros(portatil)
+    val gestorDeLibros = gestionLibros(CatalogoLibrosXML("C:\\Users\\usuarioT\\IdeaProjects\\Programacion-T6\\src\\main\\kotlin\\DAM1_6_5_RGD\\catalogo"))
     gestorDeLibros.preguntarPorUnLibro()
     gestorDeLibros.mostrarInfoDeUnLibro()
 
@@ -28,9 +28,9 @@ class gestionLibrosIU {
 
 }
 
-class gestionLibros(cargador:String)
+class gestionLibros(catalogo: GestorCatalogo)
 {
-    var cat = CatalogoLibrosXML(cargador)
+    var cat: GestorCatalogo = catalogo
 
     fun preguntarPorUnLibro() {
         println("Introduzca un ID: ")

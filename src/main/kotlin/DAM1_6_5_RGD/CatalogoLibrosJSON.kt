@@ -73,7 +73,7 @@ internal fun main() {
 }
 
 
-public class CatalogoLibrosJSON(cargador:String): Archivo
+public class CatalogoLibrosJSON(cargador:String): GestorCatalogo
 {
 
     private lateinit var libros: List<Book>

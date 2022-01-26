@@ -9,7 +9,7 @@ import java.io.File
 import java.time.LocalDate
 import javax.xml.parsers.DocumentBuilderFactory
 
-class CatalogoLibrosXML(private val cargador: String): Archivo {
+class CatalogoLibrosXML(private val cargador: String): GestorCatalogo {
 
     companion object {
         val l = KotlinLogging.logger("LOG")
