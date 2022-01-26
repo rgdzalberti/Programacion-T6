@@ -28,6 +28,10 @@ class gestionLibrosIU {
 
 }
 
+class gestionLibrosIUT1 {
+
+}
+
 class gestionLibros(catalogo: GestorCatalogo)
 {
     var cat: GestorCatalogo = catalogo
