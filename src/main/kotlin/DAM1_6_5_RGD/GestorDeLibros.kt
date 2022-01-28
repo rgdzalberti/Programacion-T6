@@ -65,9 +65,9 @@ class gestionLibros(catalogo: GestorCatalogo)
        IUT1.ImprimirEnPantalla(1)
         var idLibro = IUT1.Input()
         if (cat.existeLibro(idLibro))
-            IUT1.ImprimirEnPantalla(2)
+            IUT1.ImprimirEnPantalla(2, idLibro)
         else
-            IUT1.ImprimirEnPantalla(3)
+            IUT1.ImprimirEnPantalla(3, idLibro)
     }
 
     fun mostrarInfoDeUnLibro()
@@ -76,7 +76,7 @@ class gestionLibros(catalogo: GestorCatalogo)
         var idLibro = IUT1.Input()
         var infoLibro = cat.infoLibro(idLibro)
         if (!infoLibro.isEmpty())
-            IUT1.ImprimirEnPantalla(4)
+            IUT1.ImprimirEnPantalla(4, "" ,infoLibro)
         else
             IUT1.ImprimirEnPantalla(5)
     }
