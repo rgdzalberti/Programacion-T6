@@ -27,7 +27,7 @@ fun main() {
 class gestionLibrosIUT1(){
 
     //Los parámetros idLibro e infoLibro se introducirán solamente si es necesario en el print
-    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Pair<String, Nothing?> = "Null" to null){
+    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Map<String, Any> = emptyMap()){
         when (caso){
             1 -> println("Introduzca un ID: ")
             2 -> println("¡El libro $idLibro existe!")
@@ -43,7 +43,7 @@ class gestionLibrosIUT1(){
 class gestionLibrosIUT2(){
 
     //Parameters idLibro and infoLibro will only be introduced if necessary for printing
-    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Pair<String, Nothing?> = "Null" to null){
+    fun ImprimirEnPantalla(caso: Int, idLibro: String = "", infoLibro: Map<String, Any> = emptyMap()){
         when (caso){
             1 -> println("Enter an ID: ")
             2 -> println("Book $idLibro exists!")
